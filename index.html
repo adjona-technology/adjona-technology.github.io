@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larry Osei-Kwaku — Microsoft 365 & Azure Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:    #F25022;
+    --blue:   #00A4EF;
+    --green:  #7FBA00;
+    --yellow: #FFB900;
+    --ink:    #0a0a0a;
+    --paper:  #FAFAF7;
+    --mid:    #F0EFE9;
+    --border: 2px solid var(--ink);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  .colour-bar {
+    height: 4px;
+    background: linear-gradient(to right,
+      var(--red) 25%, var(--blue) 25% 50%,
+      var(--green) 50% 75%, var(--yellow) 75%);
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-logo span { color: var(--blue); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-decoration: none;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue); }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--border);
+    min-height: calc(100vh - 64px);
+  }
+
+  .hero-left {
+    padding: 5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: var(--border);
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .hero-name {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-name .line2 { color: var(--blue); }
+
+  .hero-bio {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #3a3a3a;
+    margin-bottom: 2.25rem;
+    max-width: 500px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 2px solid;
+    transition: background 0.15s, color 0.15s;
+    cursor: default;
+  }
+
+  .tag.red    { border-color: var(--red);   color: var(--red); }
+  .tag.blue   { border-color: var(--blue);  color: var(--blue); }
+  .tag.green  { border-color: var(--green); color: var(--green); }
+  .tag.yellow { border-color: var(--yellow); color: #9a7200; }
+
+  .tag.red:hover    { background: var(--red);    color: #fff; }
+  .tag.blue:hover   { background: var(--blue);   color: #fff; }
+  .tag.green:hover  { background: var(--green);  color: #fff; }
+  .tag.yellow:hover { background: var(--yellow); color: var(--ink); }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.8rem 1.6rem;
+    border: var(--border);
+    display: inline-block;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--blue); border-color: var(--blue); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .btn-secondary:hover { background: var(--mid); }
+
+  /* FOUR QUADS */
+  .hero-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .quad {
+    border-right: var(--border);
+    border-bottom: var(--border);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    transition: background 0.2s;
+  }
+
+  .quad:nth-child(2) { border-right: none; }
+  .quad:nth-child(4) { border-right: none; }
+  .quad:nth-child(3),
+  .quad:nth-child(4) { border-bottom: none; }
+  .quad:hover { background: var(--mid); }
+
+  .quad::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .quad.q-red::before    { background: var(--red); }
+  .quad.q-blue::before   { background: var(--blue); }
+  .quad.q-green::before  { background: var(--green); }
+  .quad.q-yellow::before { background: var(--yellow); }
+
+  .quad-num {
+    position: absolute;
+    top: 0.75rem; right: 1rem;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 5rem;
+    line-height: 1;
+    opacity: 0.06;
+    letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+
+  .quad-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+
+  .quad-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+
+  .quad-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: #777;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  /* SECTIONS */
+  section { border-bottom: var(--border); }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: var(--border);
+  }
+
+  .service-card {
+    padding: 2rem 1.75rem;
+    border-right: var(--border);
+    transition: background 0.2s;
+  }
+
+  .service-card:last-child { border-right: none; }
+  .service-card:hover { background: var(--mid); }
+
+  .service-accent { width: 28px; height: 3px; margin-bottom: 1.25rem; }
+
+  .service-card h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .service-card p { font-size: 0.88rem; color: #555; line-height: 1.7; }
+
+  /* GOVERNANCE */
+  .governance { background: var(--mid); }
+
+  .gov-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .gov-text { font-size: 1rem; line-height: 1.85; color: #3a3a3a; }
+  .gov-text p + p { margin-top: 1rem; }
+
+  .gov-roles { display: flex; flex-direction: column; gap: 1rem; }
+
+  .gov-role {
+    background: var(--paper);
+    border: var(--border);
+    border-left: 4px solid var(--yellow);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .gov-role h4 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .gov-role p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #777;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+  }
+
+  /* CLIENTS */
+  .clients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: var(--border);
+  }
+
+  .client-card {
+    padding: 2.5rem 2rem;
+    border-right: var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .client-card:last-child { border-right: none; }
+  .client-card:hover { background: var(--mid); }
+
+  .client-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .client-card.charities::before { background: var(--blue); }
+  .client-card.smes::before      { background: var(--green); }
+
+  .client-card h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .client-card p { font-size: 0.9rem; color: #555; line-height: 1.75; }
+
+  /* CREDENTIALS */
+  .cred-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cred-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: var(--border);
+    background: var(--paper);
+    transition: background 0.15s;
+  }
+
+  .cred-badge:hover { background: var(--mid); }
+
+  .cred-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    color: var(--blue);
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .cred-link:hover { color: var(--ink); border-color: var(--ink); }
+
+  .cred-groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cred-group-label {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-left: 4px solid;
+    padding-left: 0.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 700px) {
+    .cred-groups { grid-template-columns: 1fr; }
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-intro { font-size: 1rem; line-height: 1.85; color: #3a3a3a; }
+  .contact-intro p + p { margin-top: 1rem; }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+  }
+
+  /* CONTACT FORM */
+  .contact-form-wrap { width: 100%; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #666;
+  }
+
+  .form-input {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: var(--border);
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-input:focus { border-color: var(--blue); }
+  .form-input::placeholder { color: #aaa; }
+
+  .form-textarea { min-height: 120px; resize: vertical; }
+
+  .form-submit { width: 100%; justify-content: center; cursor: pointer; font-size: 0.85rem; }
+
+  .form-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    min-height: 1.2em;
+    color: var(--green);
+  }
+
+  .form-status.error { color: var(--red); }
+
+  /* FOOTER */
+  footer {
+    padding: 1.75rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-name {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: #888;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.5s ease both; }
+  .hero-name    { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-bio     { animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-tags    { animation: fadeUp 0.5s 0.3s ease both; }
+  .hero-cta     { animation: fadeUp 0.5s 0.4s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { border-right: none; border-bottom: var(--border); padding: 3rem 1.5rem; }
+    .hero-right { min-height: 60vw; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .service-card:nth-child(2) { border-right: none; }
+    .service-card:nth-child(3),
+    .service-card:nth-child(4) { border-top: var(--border); }
+    .gov-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .clients-grid { grid-template-columns: 1fr; }
+    .client-card { border-right: none; border-bottom: var(--border); }
+    .client-card:last-child { border-bottom: none; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 540px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none; border-bottom: var(--border); }
+    .service-card:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="colour-bar"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Larry <span>Osei-Kwaku</span></a>
+  <ul class="nav-links">
+    <li><a href="#healthcheck">Health Check</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#governance">Governance</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Microsoft 365 &amp; Azure Consultant</div>
+    <h1 class="hero-name">Larry<br><span class="line2">Osei-Kwaku</span></h1>
+    <p class="hero-bio">I help charities and small organisations improve their Microsoft 365 security and cloud setup — practical, secure systems that are easy to manage and aligned with real-world constraints.</p>
+    <div class="hero-tags">
+      <span class="tag blue">M365</span>
+      <span class="tag blue">Azure</span>
+      <span class="tag red">Security</span>
+      <span class="tag yellow">AI</span>
+      <span class="tag red">Sentinel</span>
+      <span class="tag red">Defender XDR</span>
+      <span class="tag blue">Purview</span>
+      <span class="tag green">Charity &amp; Governance</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="https://www.credly.com/users/larry-osei-kwaku" target="_blank" rel="noopener" class="btn btn-secondary">View credentials →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="quad q-red">
+      <div class="quad-num">01</div>
+      <div class="quad-icon">🛡️</div>
+      <div class="quad-title">Security</div>
+      <div class="quad-sub">Sentinel · Defender XDR<br>Identity &amp; Access</div>
+    </div>
+    <div class="quad q-blue">
+      <div class="quad-num">02</div>
+      <div class="quad-icon">☁️</div>
+      <div class="quad-title">Cloud</div>
+      <div class="quad-sub">Azure · M365<br>Admin &amp; Architecture</div>
+    </div>
+    <div class="quad q-green">
+      <div class="quad-num">03</div>
+      <div class="quad-icon">📋</div>
+      <div class="quad-title">Governance</div>
+      <div class="quad-sub">Purview · DLP<br>Data Protection · UK GDPR</div>
+    </div>
+    <div class="quad q-yellow">
+      <div class="quad-num">04</div>
+      <div class="quad-icon">🤖</div>
+      <div class="quad-title">AI</div>
+      <div class="quad-sub">Copilot Studio · Azure AI<br>Security Copilot</div>
+    </div>
+  </div>
+</section>
+
+<section id="healthcheck" style="background:var(--mid)">
+  <div class="section-inner">
+    <div class="section-label">A good place to start</div>
+    <h2 class="section-title">Microsoft 365 Security Health Check</h2>
+    <p style="font-size:1rem;line-height:1.85;color:#3a3a3a;max-width:640px;margin-bottom:2rem;">A short, fixed engagement to review your current Microsoft 365 setup, identify risks, and provide clear, practical recommendations. Ideal for small charities and organisations who want to understand their security posture without committing to a larger project.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;">
+      <span class="cred-badge" style="border-color:var(--blue);color:var(--blue);">Fixed fee</span>
+      <span class="cred-badge" style="border-color:var(--green);color:var(--green);">Remote</span>
+      <span class="cred-badge" style="border-color:var(--yellow);color:#9a7200;">Delivered in 3–5 days</span>
+    </div>
+    <a href="#contact" class="btn btn-primary">Enquire about a health check</a>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="section-label">What I do</div>
+    <h2 class="section-title">Services</h2>
+    <p style="font-size:0.95rem;color:#555;margin-bottom:2rem;">Engagements range from short security reviews to more in-depth configuration and improvement work.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-accent" style="background:var(--blue)"></div>
+        <h3>Microsoft 365 Security</h3>
+        <p>Tenant health reviews, identity and access hardening, MFA deployment, and ongoing security posture improvement for M365 environments.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-accent" style="background:var(--red)"></div>
+        <h3>Threat Detection &amp; Response</h3>
+        <p>Microsoft Sentinel and Defender XDR configuration, incident response planning, and security monitoring tailored to your organisation's risk profile.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-accent" style="background:var(--green)"></div>
+        <h3>Data Protection &amp; Compliance</h3>
+        <p>Microsoft Purview implementation, DLP policy design, information protection, and UK GDPR alignment — technical controls that reflect your governance obligations.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-accent" style="background:var(--yellow)"></div>
+        <h3>AI &amp; Cloud Enablement</h3>
+        <p>Azure AI, Copilot Studio, and Container Apps — practical AI adoption with the right guardrails in place from the start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="governance" class="governance">
+  <div class="section-inner">
+    <div class="section-label">A genuine differentiator</div>
+    <h2 class="section-title">Technical depth.<br>Governance fluency.</h2>
+    <div class="gov-grid">
+      <div class="gov-text">
+        <p>Most IT consultants understand the technology. Fewer understand what sits behind it — the board obligations, the regulatory exposure, and the governance frameworks that determine whether technical controls actually protect an organisation.</p>
+        <p>As a former charity trustee, director, and data protection officer, I bring both perspectives to every engagement. That means the recommendations I make are grounded in what your organisation actually needs to be accountable — not just what looks good on a checklist.</p>
+        <p>For charities and small organisations in particular, this combination matters. You need someone who speaks the language of your trustees and senior leadership, not just your IT team.</p>
+      </div>
+      <div class="gov-roles">
+        <div class="gov-role">
+          <h4>Charity governance</h4>
+          <p>Worked within charity governance structures at a senior level — strategy, regulatory compliance, and organisational accountability</p>
+        </div>
+        <div class="gov-role">
+          <h4>Data protection in practice</h4>
+          <p>Accountable for UK GDPR compliance, ICO engagement, privacy by design, and data subject rights in a live organisational context</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="section-inner">
+    <div class="section-label">Who I work with</div>
+    <h2 class="section-title">Built for organisations<br>with real constraints</h2>
+    <div class="clients-grid">
+      <div class="client-card charities">
+        <h3>Charities &amp; Non-profits</h3>
+        <p>Small teams, volunteer workforces, and tight budgets don't mean security has to be an afterthought. I understand the charity sector — its licensing landscape, its governance structures, and the particular pressures that come with handling sensitive data on limited resources.</p>
+      </div>
+      <div class="client-card smes">
+        <h3>Small &amp; Medium Businesses</h3>
+        <p>You don't need a full-time security team. You need the right setup, clearly documented, with someone who can explain the decisions to your leadership. I work with SMEs to make Microsoft's security stack practical and proportionate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="section-inner">
+    <div class="section-label">What I bring</div>
+    <h2 class="section-title">Skills &amp; Expertise</h2>
+    <div class="cred-groups">
+      <div class="cred-group">
+        <div class="cred-group-label" style="border-color:var(--red)">Security &amp; Identity</div>
+        <div class="cred-stack">
+          <span class="cred-badge">Microsoft Sentinel</span>
+          <span class="cred-badge">Defender XDR</span>
+          <span class="cred-badge">Security Copilot</span>
+          <span class="cred-badge">Identity &amp; Access Management</span>
+          <span class="cred-badge">MFA &amp; Conditional Access</span>
+        </div>
+      </div>
+      <div class="cred-group">
+        <div class="cred-group-label" style="border-color:var(--green)">Data Protection &amp; Compliance</div>
+        <div class="cred-stack">
+          <span class="cred-badge">Microsoft Purview</span>
+          <span class="cred-badge">DLP &amp; Information Protection</span>
+          <span class="cred-badge">UK GDPR</span>
+          <span class="cred-badge">Data Classification</span>
+        </div>
+      </div>
+      <div class="cred-group">
+        <div class="cred-group-label" style="border-color:var(--blue)">Cloud &amp; AI</div>
+        <div class="cred-stack">
+          <span class="cred-badge">Azure Administration</span>
+          <span class="cred-badge">Microsoft 365 Administration</span>
+          <span class="cred-badge">Copilot Studio</span>
+          <span class="cred-badge">Azure AI</span>
+          <span class="cred-badge">Container Apps</span>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.credly.com/users/larry-osei-kwaku" target="_blank" rel="noopener" class="cred-link">
+      View verified badges on Credly →
+    </a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Let's talk</div>
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-grid">
+      <div class="contact-intro">
+        <p>If you're not sure where to start, a short Microsoft 365 security review is often a good first step. Get in touch and tell me a little about your situation — I'm happy to have an initial conversation at no charge.</p>
+        <p>I work with charities, non-profits, and small businesses across the UK.</p>
+      </div>
+      <div class="contact-form-wrap">
+        <form class="contact-form" action="https://formspree.io/f/xnjgkkzw" method="POST" id="contact-form">
+          <div class="form-group">
+            <label class="form-label" for="name">Your name</label>
+            <input class="form-input" type="text" id="name" name="name" required placeholder="e.g. Jane Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="org">Organisation</label>
+            <input class="form-input" type="text" id="org" name="organisation" placeholder="e.g. Richmond Community Trust">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email address</label>
+            <input class="form-input" type="email" id="email" name="email" required placeholder="you@example.org">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">How can I help?</label>
+            <textarea class="form-input form-textarea" id="message" name="message" required placeholder="A brief description of what you're looking for…"></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="New website enquiry — Larry Osei-Kwaku">
+          <button type="submit" class="btn btn-primary form-submit">Send message</button>
+          <p class="form-status" id="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Larry Osei-Kwaku</div>
+  <div class="footer-copy">© 2026 · Microsoft 365 &amp; Azure Consultant · United Kingdom</div>
+</footer>
+<div class="colour-bar"></div>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          btn.textContent = 'Message sent';
+          status.textContent = "Thank you — I'll be in touch shortly.";
+        } else {
+          throw new Error();
+        }
+      } catch {
+        btn.textContent = 'Send message';
+        btn.disabled = false;
+        status.className = 'form-status error';
+        status.textContent = 'Something went wrong. Please try again or email directly.';
+      }
+    });
+  }
+</script>
+</body>
+</html>
